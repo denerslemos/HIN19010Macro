@@ -30,7 +30,7 @@
 
 using namespace std;
 
-void ana_LAL(int mult){
+void ana_LAL_old(){
 
 // For systematics, have to update    
 const int nsys = 1;
@@ -44,7 +44,7 @@ string systematic[nsys] = {
 gStyle->SetOptStat(0);
 gStyle->SetOptTitle(0);
     
-int Ntrkrange = mult; // -> 0 means integrated; -> 1 means MB [0,120]; -> 2 means HM [185,250]; 
+int Ntrkrange = 0; // -> 0 means integrated; -> 1 means MB [0,120]; -> 2 means HM [185,250]; 
     
 //qinv range
 double qmin = 0.0;
@@ -57,7 +57,8 @@ double ktmax = 1.9999999;
 //ntrk bin
 double ntkmin;
 double ntkmax;
-double Rpar_LAL = 2.; // initial guess on R
+double Rpar_LAL = 2.0; // initial guess on R
+
 if(Ntrkrange==0){
 ntkmin = 0.0;
 ntkmax = 399.9999999;
@@ -87,7 +88,7 @@ TString syste;
 
 //Reading the input file
 TString filename; 
-filename = Form("histos_V0_ktbin_%i_multbin_%i_syst_%i.root",0,Ntrkrange,i);
+filename = "saida__V0__ktmin_0_ktmax_1.9999998999999999_ntrkmin0_ntkmax_399.99999989999998.root";
 TFile* f = new TFile(Form("%s",filename.Data()),"READ");
 cout << "File Read" << endl;
 
@@ -210,7 +211,7 @@ f_exp->SetParLimits(1,0.84,5.0);
 f_exp->ReleaseParameter(2);
 f_exp->SetParLimits(2,-3.0,3.0);
 f_exp->ReleaseParameter(4);
-f_exp->SetParLimits(4, 0.0,5.0);
+f_exp->SetParLimits(4, .0,5.0);
 h_LAL_qinv_ss_1D->Fit(f_exp, "Rq0", "", full_qrange.first, full_qrange.second);
 h_LAL_qinv_ss_1D->Fit(f_exp, "Rq0", "", full_qrange.first, full_qrange.second);
 h_LAL_qinv_ss_1D->Fit(f_exp, "Rq0", "", full_qrange.first, full_qrange.second);
@@ -264,7 +265,7 @@ f_exp->ReleaseParameter(2);
 f_exp->ReleaseParameter(3);
 f_exp->ReleaseParameter(4);
 f_exp->ReleaseParameter(8);
-f_exp->SetParLimits(1,0.84, Rpar_LAL);
+f_exp->SetParLimits(1,0.84,Rpar_LAL);
 f_exp->SetParLimits(2, f_exp->GetParameter(2)-err*fabs(f_exp->GetParameter(2)),f_exp->GetParameter(2)+err*fabs(f_exp->GetParameter(2)));
 f_exp->SetParLimits(3, f_exp->GetParameter(3)-err*fabs(f_exp->GetParameter(3)),f_exp->GetParameter(3)+err*fabs(f_exp->GetParameter(3)));
 f_exp->SetParLimits(4, f_exp->GetParameter(4)-err*fabs(f_exp->GetParameter(4)),f_exp->GetParameter(4)+err*fabs(f_exp->GetParameter(4)));
@@ -281,11 +282,11 @@ f_exp->ReleaseParameter(10);
 */
 
 for ( int i = 0; i < iter; i++ ) {
-   h_LAL_qinv_ss_1D->Fit(f_exp, "SRq0", "", full_qrange.first, full_qrange.second);
+   h_LAL_qinv_ss_1D->Fit(f_exp, "Rq0", "", full_qrange.first, full_qrange.second);
 }
 
 TFitResultPtr res;
-res = h_LAL_qinv_ss_1D->Fit(f_exp, "SRq0");
+res = h_LAL_qinv_ss_1D->Fit(f_exp, "Rq0");
 
 Int_t fitStatus = res;
 //cout << "fitStatus:" << fitStatus << endl;
@@ -323,7 +324,7 @@ fit_CL_LR->SetParameter(1, f_exp->GetParameter(6));
 fit_CL_LR->SetParameter(2, f_exp->GetParameter(7));
 fit_CL_LR->SetParameter(3, f_exp->GetParameter(10)*f_exp->GetParameter(0));
 
-LALplot_label(h_LAL_qinv_ss_1D, f_exp, fit_SI, fit_CL_LR, ktmin, ktmax, ntkmin, ntkmax, Form("LAL_chi2_mult%i_%s",Ntrkrange,systematic[i].c_str()),"Preliminary", "#chi^{2}",Form("%s",systematic[i].c_str()));
+LALplot_label(h_LAL_qinv_ss_1D, f_exp, fit_SI, fit_CL_LR, ktmin, ktmax, ntkmin, ntkmax, Form("LAL_chi2_%s",systematic[i].c_str()),"Preliminary", "#chi^{2}",Form("%s",systematic[i].c_str()));
 
 fit_SI->SetParameter(0, 1.0);
 fit_SI->SetParameter(1, f_exp->GetParameter(1));

@@ -96,7 +96,7 @@ gStyle->SetOptTitle(0);
 
 //reading the input file
 TString filename; 
-filename = Form("./Merged_V0HBT_%i.root",syst);
+filename = Form("./rootfiles/Merged_V0HBT_%i.root",syst);
 
 TFile* f = new TFile(Form("%s",filename.Data()),"READ");
 
