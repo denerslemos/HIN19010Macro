@@ -73,10 +73,25 @@ if(ktbin==0){
 	ktmin = 0.0;
 	ktmax = 1.999999;
 }else if(ktbin==1){ // for K0sK0s only
+	ktmin = 0.0;
+	ktmax = 0.799999;
+}else if(ktbin==2){ // for K0sK0s only
+	ktmin = 0.8;
+	ktmax = 0.999999;
+}else if(ktbin==3){ // for K0sK0s only
+	ktmin = 1.0;
+	ktmax = 1.1999999;
+}else if(ktbin==4){ // for K0sK0s only
+	ktmin = 1.2;
+	ktmax = 1.4999999;
+}else if(ktbin==5){ // for K0sK0s only
+	ktmin = 1.5;
+	ktmax = 1.9999999;
 }
 
+
 Double_t ntkmin, ntkmax;
-if(ktbin != 0) multbin = 0;
+//if(ktbin != 0) multbin = 0;
 //ntrk bin
 if(multbin==0){ // == 0 means integrated (LL+ALAL and LAL)
 	ntkmin = 0.0;
@@ -88,7 +103,53 @@ if(multbin==0){ // == 0 means integrated (LL+ALAL and LAL)
 	ntkmin = 185.0;
 	ntkmax = 249.9999999;
 }else if(multbin==3){ // additional ones for K0sK0s only
+	ntkmin = 0.0;
+	ntkmax = 29.999999;
+}else if(multbin==4){ // additional ones for K0sK0s only
+	ntkmin = 30.0;
+	ntkmax = 39.999999;
+}else if(multbin==4){ // additional ones for K0sK0s only
+	ntkmin = 40.0;
+	ntkmax = 59.999999;
+}else if(multbin==5){ // additional ones for K0sK0s only
+	ntkmin = 60.0;
+	ntkmax = 79.999999;
+}else if(multbin==6){ // additional ones for K0sK0s only
+	ntkmin = 80.0;
+	ntkmax = 89.999999;
+}else if(multbin==7){ // additional ones for K0sK0s only
+	ntkmin = 90.0;
+	ntkmax = 99.999999;
+}else if(multbin==8){ // additional ones for K0sK0s only
+	ntkmin = 100.0;
+	ntkmax = 109.999999;
+}else if(multbin==9){ // additional ones for K0sK0s only
+	ntkmin = 110.0;
+	ntkmax = 119.999999;
+}else if(multbin==10){ // additional ones for K0sK0s only
+	ntkmin = 120.0;
+	ntkmax = 149.999999;
+}else if(multbin==11){ // additional ones for K0sK0s only
+	ntkmin = 150.0;
+	ntkmax = 184.999999;
+}else if(multbin==12){ // additional ones for K0sK0s only
+	ntkmin = 185.0;
+	ntkmax = 199.999999;
+}else if(multbin==13){ // additional ones for K0sK0s only
+	ntkmin = 200.0;
+	ntkmax = 214.999999;
+}else if(multbin==14){ // additional ones for K0sK0s only
+	ntkmin = 215.0;
+	ntkmax = 229.999999;
+}else if(multbin==15){ // additional ones for K0sK0s only
+	ntkmin = 230.0;
+	ntkmax = 249.999999;
+}else if(multbin==16){ // additional ones for K0sK0s only
+	ntkmin = 250.0;
+	ntkmax = 399.999999;
 }
+
+
 
 //root stuff
 gStyle->SetOptStat(0);
